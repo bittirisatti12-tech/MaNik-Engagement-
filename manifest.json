@@ -1,0 +1,22 @@
+{
+  "name": "#ViNi SHAADI",
+  "short_name": "ViNi SHAADI",
+  "description": "Wedding invitation for Niharika & Vivek",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#d4af37",
+  "icons": [
+    {
+      "src": "./Gemini_Generated_Image_lfdb57lfdb57lfdb.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./Gemini_Generated_Image_lfdb57lfdb57lfdb.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
