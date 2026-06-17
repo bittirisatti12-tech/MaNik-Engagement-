@@ -963,14 +963,14 @@
                 width: '0',
                 videoId: '1LTPPoeOZTs',  
                 playerVars: {
-                    autoplay: 1,
-                    mute: 1,          // Required for mobile autoplay
-                    loop: 1,
-                    playlist: '1LTPPoeOZTs',
-                    playsinline: 1,
-                    controls: 0,
-                    modestbranding: 1
-                }
+                    'autoplay': 1,
+                    'loop': 1,
+                    'playlist': '1LTPPoeOZTs',
+                    'playsinline': 1, // Critical for mobile
+                    'controls': 0,
+                    'showinfo': 0,
+                    'modestbranding': 1
+                },
                 events: {
                     'onReady': onPlayerReady
                 }
@@ -978,19 +978,26 @@
         }
 
         function onPlayerReady(event) {
-    event.target.playVideo();
+            // Set volume to 50% immediately
+            event.target.setVolume(50);
+            
+            // Try to play immediately (might be blocked by browser)
+            event.target.unMute();
+            event.target.playVideo();
+            
+            // Interaction fallback to ensure it plays as soon as user interacts
+            const playOnInteraction = () => {
+                event.target.playVideo();
+                event.target.unMute();
+                document.removeEventListener('click', playOnInteraction);
+                document.removeEventListener('touchstart', playOnInteraction);
+                document.removeEventListener('scroll', playOnInteraction);
+            };
 
-    const unmuteOnFirstTouch = () => {
-        event.target.unMute();
-        event.target.setVolume(50);
-
-        document.removeEventListener('touchstart', unmuteOnFirstTouch);
-        document.removeEventListener('click', unmuteOnFirstTouch);
-    };
-
-    document.addEventListener('touchstart', unmuteOnFirstTouch, { once: true });
-    document.addEventListener('click', unmuteOnFirstTouch, { once: true });
-}
+            document.addEventListener('click', playOnInteraction);
+            document.addEventListener('touchstart', playOnInteraction);
+            document.addEventListener('scroll', playOnInteraction);
+        }
 
         // Back to Top Logic
         const backToTopBtn = document.getElementById('backToTop');
