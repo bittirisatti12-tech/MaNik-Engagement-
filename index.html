@@ -963,14 +963,14 @@
                 width: '0',
                 videoId: '1LTPPoeOZTs',  
                 playerVars: {
-                    'autoplay': 1,
-                    'loop': 1,
-                    'playlist': '1LTPPoeOZTs',
-                    'playsinline': 1, // Critical for mobile
-                    'controls': 0,
-                    'showinfo': 0,
-                    'modestbranding': 1
-                },
+                    autoplay: 1,
+                    mute: 1,          // Required for mobile autoplay
+                    loop: 1,
+                    playlist: '1LTPPoeOZTs',
+                    playsinline: 1,
+                    controls: 0,
+                    modestbranding: 1
+                }
                 events: {
                     'onReady': onPlayerReady
                 }
@@ -978,19 +978,18 @@
         }
 
         function onPlayerReady(event) {
-    event.target.setVolume(50);
+    event.target.playVideo();
 
-    // Mobile-friendly autoplay after first touch/click anywhere
-    const startMusic = () => {
+    const unmuteOnFirstTouch = () => {
         event.target.unMute();
-        event.target.playVideo();
+        event.target.setVolume(50);
 
-        document.removeEventListener('touchstart', startMusic);
-        document.removeEventListener('click', startMusic);
+        document.removeEventListener('touchstart', unmuteOnFirstTouch);
+        document.removeEventListener('click', unmuteOnFirstTouch);
     };
 
-    document.addEventListener('touchstart', startMusic, { once: true });
-    document.addEventListener('click', startMusic, { once: true });
+    document.addEventListener('touchstart', unmuteOnFirstTouch, { once: true });
+    document.addEventListener('click', unmuteOnFirstTouch, { once: true });
 }
 
         // Back to Top Logic
