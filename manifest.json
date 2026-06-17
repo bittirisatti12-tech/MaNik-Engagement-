@@ -1,7 +1,7 @@
 {
-  "name": "#ViNi SHAADI",
-  "short_name": "ViNi SHAADI",
-  "description": "Wedding invitation for Niharika & Vivek",
+  "name": "#MaNik SHAADI",
+  "short_name": "MaNik SHAADI",
+  "description": "Wedding invitation for Manasa & Nikhil",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
